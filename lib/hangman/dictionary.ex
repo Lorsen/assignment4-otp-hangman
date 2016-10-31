@@ -44,7 +44,7 @@ defmodule Hangman.Dictionary do
   ###########################
 
   # Page 225 of Elixir Text
-  def init(args), do: { :ok, args }
+  def init(args), do: { :ok, get_word_list }
 
   # Page 225-226 of Elixir Text & Lecture 16
   def handle_call({ :random_word }, _from, state) do
@@ -75,7 +75,7 @@ defmodule Hangman.Dictionary do
   # End of public interface #
   ###########################
 
-  defp word_list do
+  defp get_word_list do
     @word_list_file_name
     |> File.open!
     |> IO.stream(:line)

@@ -39,7 +39,7 @@ defmodule Hangman.GameServer do
   # GenServer Implmentation #
   ###########################
 
-  def init(args), do: { :ok, state } 
+  def init(args), do: { :ok, args }
 
   def handle_call({ :make_move, guess }, _from, state) do
     { new_state, status, _ } = Hangman.make_move(state, guess)
@@ -47,15 +47,15 @@ defmodule Hangman.GameServer do
   end
 
   def handle_call({ :word_length }, _from, state) do
-    {:reply, Hangman.word_length, state}
+    {:reply, Hangman.word_length(state), state}
   end
 
   def handle_call({ :letters_used_so_far }, _from, state) do
-    {:reply, Hangman.letters_used_so_far, state}
+    {:reply, Hangman.letters_used_so_far(state), state}
   end
 
   def handle_call({ :turns_left }, _from, state) do
-    {:reply, Hangman.turns_left, state}
+    {:reply, Hangman.turns_left(state), state}
   end
 
   def handle_call({ :word_as_string, reveal }, _from, state) do
