@@ -20,7 +20,8 @@ If the Dictionary exits for any reason, kill any game, and restart both the
 Dictionary and the Game.
 
 # Restart everything, so :permanent restart.
-# Kill all games, so supervisor strategy is :one_for_all
+# If dictionary dies, then kill the games (these are children following the dictionary process),
+# so supervisor strategy is :rest_for_one
 
 (Hint: you'll need two supervisors.)
 
