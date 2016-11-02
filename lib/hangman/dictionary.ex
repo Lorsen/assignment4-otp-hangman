@@ -17,7 +17,7 @@ defmodule Hangman.Dictionary do
   @doc """
   Start GenServer and start with the word list.
   """
-  def start_link(words) do
+  def start_link(words \\ []) do
     GenServer.start_link(__MODULE__, words, name: @me  )
   end
 
@@ -44,13 +44,13 @@ defmodule Hangman.Dictionary do
   ###########################
 
   # Page 225 of Elixir Text
-  def init(args), do: { :ok, get_word_list }
+  def init(get_word_list), do: { :ok, get_word_list }
 
   # Page 225-226 of Elixir Text & Lecture 16
   def handle_call({ :random_word }, _from, state) do
     {
       :reply,
-      word_list
+      get_word_list
       |> Enum.random
       |> String.trim,
       state
@@ -64,7 +64,7 @@ defmodule Hangman.Dictionary do
   def handle_call({ :words_of_length, len }, _from, state) do
     {
       :reply,
-      word_list
+      get_word_list
       |> Stream.map(&String.trim/1)
       |> Enum.filter(&(String.length(&1) == len)),
       state
